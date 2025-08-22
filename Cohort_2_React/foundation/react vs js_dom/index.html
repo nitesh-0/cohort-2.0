@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="button-parent"></div>
+
+    <script>
+
+        // code to write increase count of a counter button when clicked using JS + DOM.
+        let state = {
+            count: 0
+        }
+
+        function increaseCount() {
+            state.count++
+            buttonComponentRender()
+        }
+
+        function buttonComponentRender() {
+            document.getElementById("button-parent").innerHTML = ""
+            component = componentCount(state.count)
+            document.getElementById("button-parent").appendChild(component)
+        }
+
+        function componentCount(count) {
+            button = document.createElement("button")
+            button.innerHTML = `count ${count}`
+            button.setAttribute("onclick", "increaseCount()")
+            return button
+        }
+
+        buttonComponentRender()
+
+    </script>
+</body>
+
+</html>
