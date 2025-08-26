@@ -13,7 +13,6 @@ async function insertUser(username, password, firstName, lastName) {
     });
     console.log(res);
 }
-insertUser("nitesh@gmail.com", "secretpassword", "Nitesh", "Sah");
 async function updateUser(email, { firstName, lastName }) {
     const res = await prisma.user.update({
         data: {
@@ -31,4 +30,27 @@ async function getUser() {
     const res = await prisma.user.findMany();
     console.log(res);
 }
-getUser();
+//getUser()
+async function getTodo(userId) {
+    // const created = await prisma.todo.create({
+    //   data: {
+    //     title: "Go To Gym",
+    //     description: "Go to gym from 5-6pm",
+    //     user_id: userId
+    //   }
+    // })
+    // console.log("Created User details: ", created)
+    const response = await prisma.todo.findMany({
+        where: {
+            user_id: userId
+        },
+        select: {
+            id: true,
+            title: true,
+            description: true,
+            user: true
+        }
+    });
+    console.log(response);
+}
+getTodo(2);
