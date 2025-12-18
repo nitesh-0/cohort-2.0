@@ -1,34 +1,42 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
+import axios from 'axios'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [loading, setLoading] = useState(true)
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+
+  useEffect(() => {
+    axios.get("https://week-13-offline.kirattechnologies.workers.dev/api/v1/user/details")
+    .then((res) => {
+      setLoading(false)
+      console.log(res)
+      console.log("result: ", res.data)
+      const result = res.data
+      setName(result.name)
+      setEmail(result.email)
+    })
+
+  }, [])
+
+  if(loading){
+    return <div>
+      loading...
+    </div>
+  }
 
   return (
-    <>
+    
+    <div>
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        {name}
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+      <div>
+        {email}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    </div>
   )
 }
 
