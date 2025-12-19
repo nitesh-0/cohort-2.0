@@ -1,9 +1,21 @@
-import axios from "axios"
+import prisma from '@/lib/prisma';
+
+
+// async function fetchData(){
+//     const result = await axios.get("http://localhost:3000/api/user")
+
+//     return result.data
+// }
 
 async function fetchData(){
-    const result = await axios.get("http://localhost:3000/api/user")
-
-    return result.data
+    try {
+        const userDetails = await prisma.user.findFirst()
+        return userDetails
+    }
+    catch(e){
+        console.log(e)
+    }
+    
 }
 
 export default async function User(){
@@ -11,10 +23,7 @@ export default async function User(){
 
     return <div>
         <div>
-            {data.name}
-        </div>
-        <div>
-            {data.email}
+            {data?.email}
         </div>
     </div>
 }

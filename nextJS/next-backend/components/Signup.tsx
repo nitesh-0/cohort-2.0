@@ -5,12 +5,14 @@ import { useState } from "react"
 
 
 export function SignupComponent(){
-    const [username, setUsername] = useState("")
+    const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
+
     async function handleSignupClick(){
+
         const response = await axios.post("http://localhost:3000/api/user", {
-            username,
+            email,
             password
         })
 
@@ -22,7 +24,7 @@ export function SignupComponent(){
 
             <div className="w-[200px] border">
                 <input onChange={(e) => {
-                    setUsername(e.target.value)
+                    setEmail(e.target.value)
                 }} placeholder="Enter username"/>
             </div>
             <div className="w-[200px] border">
