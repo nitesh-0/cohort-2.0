@@ -15,7 +15,7 @@ export async function GET(req: NextRequest){
 }
 
 export async function POST(req: NextRequest){
-    const body = await req.json()
+    const body = await req.json()          
 
     console.log(req.headers.get("authorization"))
     console.log(req.nextUrl.searchParams.get("name"))
