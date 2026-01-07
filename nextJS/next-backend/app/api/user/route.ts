@@ -49,8 +49,5 @@ export async function POST(req: NextRequest){
             msg: "Error signing up",
             error: e
         })
-    }
-
-    
-
+    }    
 }
