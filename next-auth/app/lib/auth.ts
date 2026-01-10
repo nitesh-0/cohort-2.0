@@ -1,4 +1,7 @@
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from "next-auth/providers/google";
+import GitHubProvider from "next-auth/providers/github";
+
 
 
 export const NEXT_AUTH = {
@@ -14,29 +17,39 @@ export const NEXT_AUTH = {
                 console.log(credentials)
             
                 return {
-                    id: "user1",
+                    id: "1",
                     name: "Harkirat Singh",
-                    email: "nitesh760@gmail.com"
                 };
             },
+        }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID || "",
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET || ""
+        }),
+
+        GitHubProvider({
+            clientId: process.env.GITHUB_ID || "",
+            clientSecret: process.env.GITHUB_SECRET || ""
         })
     ],
     secret: process.env.NEXTAUTH_SECRET,
     callbacks: {
         jwt: ({token, user}: any) => {
-            console.log(token)
-            const subb = token.sub
-            const userId = subb?.slice(-1)
-            console.log("userId", userId)
+            console.log('token: ', token)
             return token
         },
 
         session: ({session, token, user}: any) => {
             if(session && session.user){
-            session.user.id = token.sub.slice(-1)
+            session.user.id = token.sub
             }
+            console.log("session: ", session)
             return session
         }
+    },
+
+    pages: {
+        signIn: "/signin"
     }
 
 }
